@@ -12,15 +12,15 @@ python run_one_hot_analysis.py --aln --tree --model
 ```
 python run_one_hot_analysis.py --aln --tree --model 
 ```
-4. Fine to coarse evolutionary timescale analysis
+3. Fine to coarse evolutionary timescale analysis
 ```
 python run_one_hot_analysis.py --aln --tree --model 
 ```
-6. Elastic Net Regression Training and salient neuron analysis
+4. Elastic Net Regression Training and salient neuron analysis
 ```
 python run_one_hot_analysis.py --aln --tree --model 
 ```
-8. Non-homologous dispersion probe
+5. Non-homologous dispersion probe
 ```
 python run_one_hot_analysis.py --aln --tree --model 
 ```
