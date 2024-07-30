@@ -1,8 +1,7 @@
 # Do protein language model learn phylogenetic relationships?
 
-Bioarchive paper link:
 
-To run the investigations presented :
+To run the investigations presented in the paper :
 
 1. Prepare data for analysis (create LG tree, remove gaps, and shuffles the amino acids in sequences)
 ```
