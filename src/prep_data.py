@@ -6,6 +6,14 @@ shuffle amino acids in aligned and unaligned fasta file.
 '''
 import sys, utils, pickle, os
 import numpy as np
+import getopt
+
+# help function
+def help():
+    print("Incorrect or Incomplete command line arguments")
+    print('python prep_data.py -a alignment file')
+    exit()
+
 
 def prep_data_fn(fasta_aln_file):
 
@@ -49,5 +57,14 @@ def prep_data_fn(fasta_aln_file):
     print(f"Created LG matrix")
     
 if __name__ == "__main__":
-    fasta_aln_file = sys.argv[1]
+    argv = sys.argv[1:]
+    opts, _ = getopt.getopt(argv, "a:")
+
+    if len(opts) == 0:
+        help()
+    
+    for opt, arg in opts:
+        if opt in ['-a']:
+            fasta_aln_file = arg
+
     prep_data_fn(fasta_aln_file)
