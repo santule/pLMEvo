@@ -4,23 +4,33 @@ Bioarchive paper link:
 
 To run the investigations presented :
 
-1. One-hot analysis
+1. Prepare data for analysis (create LG tree, remove gaps, and shuffles the amino acids in sequences)
 ```
-python run_one_hot_analysis.py --aln --tree --model 
+python prep_data.py --path
+
 ```
-2. RSS (order) / (magnitude) to low-gap and high-gap pfam datasets
+2. One-hot analysis
 ```
-python run_one_hot_analysis.py --aln --tree --model 
+python run_one_hot_analysis.py --path --model 
+
 ```
-3. Fine to coarse evolutionary timescale analysis
+3. RSS (order) / (magnitude) to low-gap and high-gap pfam datasets
 ```
-python run_one_hot_analysis.py --aln --tree --model 
+python rss_analysis.py --path --model
+
 ```
-4. Elastic Net Regression Training and salient neuron analysis
+4. Fine to coarse evolutionary timescale analysis
 ```
-python run_one_hot_analysis.py --aln --tree --model 
+python evol_timescale_analysis.py --path --model 
+
 ```
-5. Non-homologous dispersion probe
+5. Elastic Net Regression Training and salient neuron analysis
 ```
-python run_one_hot_analysis.py --aln --tree --model 
+python salient_neurons.py --path --model
+
+```
+6. Non-homologous dispersion probe
+```
+python nonhomologous_probe.py --path --otherpath --model
+
 ```
