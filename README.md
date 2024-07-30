@@ -5,7 +5,13 @@ To run the investigations presented in the paper :
 
 1. Prepare data for analysis (create LG tree, remove gaps, and shuffles the amino acids in sequences)
 ```
-python prep_data.py --path
+python prep_data.py -aln aligned_fasta_file
+
+arguments:
+-aln aligned fasta file with full path
+
+example:
+python prep_data.py -aln ../data/PF01196/PF01196.aln
 
 ```
 2. One-hot analysis
