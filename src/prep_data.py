@@ -32,7 +32,7 @@ def prep_data_fn(fasta_aln_file):
 
     # remove gaps
     fasta_file_name_wo_gap = f'{file_location}/{base_file_name}_nogap.aln'
-    utils.remove_gaps(fasta_aln_file,fasta_file_name_wo_gap,'-')
+    utils.remove_gaps(fasta_aln_file,fasta_file_name_wo_gap,'.')
     print(f"Create fasta file without gaps")
     
     # shuffle aa in both gap and non-gap fasta file
