@@ -1,7 +1,14 @@
 # Do protein language model learn phylogenetic relationships?
 
+## Description
 
-To run the investigations presented in the paper :
+## Getting Started
+### Dependencies
+```
+pip install -r requirements.txt
+```
+
+### Running the investigations presented in the paper
 
 1. Prepare data for analysis (create LG tree, LG matrix, remove and standarise gaps, and shuffles the amino acids in sequences)
 ```
