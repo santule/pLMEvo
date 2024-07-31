@@ -19,7 +19,6 @@ arguments:
 
 example:
 python prep_data.py -a ../data/PF01196/PF01196.aln
-
 ```
 2. One-hot analysis
 ```
@@ -46,8 +45,14 @@ python homology_analysis.py -a ../data/PF01196/PF01196.aln -m esm2 -s N
 ```
 4. Fine to coarse evolutionary timescale analysis
 ```
-python evol_timescale_analysis.py --path --model 
+python evol_timescale_analysis.py -a aligned fasta file -m model type
 
+arguments:
+-a aligned fasta file with full path
+-m model type (options: esm2, pt, msa)
+
+example:
+python evol_timescale_analysis.py -a ../data/PF01196/PF01196.aln -m esm2
 ```
 5. Elastic Net Regression Training and salient neuron analysis
 ```
