@@ -5,24 +5,37 @@ To run the investigations presented in the paper :
 
 1. Prepare data for analysis (create LG tree, LG matrix, remove and standarise gaps, and shuffles the amino acids in sequences)
 ```
-python prep_data.py -aln aligned_fasta_file
+python prep_data.py -a aligned fasta file
 
 arguments:
--aln aligned fasta file with full path
+-a aligned fasta file with full path
 
 example:
-python prep_data.py -aln ../data/PF01196/PF01196.aln
+python prep_data.py -a ../data/PF01196/PF01196.aln
 
 ```
 2. One-hot analysis
 ```
-python run_one_hot_analysis.py --path --model 
+python run_one_hot_analysis.py -a aligned fasta file -m model type
 
-```
-3. RSS (order) / (magnitude) to low-gap and high-gap pfam datasets
-```
-python rss_analysis.py --path --model
+arguments:
+-a aligned fasta file with full path
+-m model type (options: esm2, pt, msa)
 
+example:
+python run_one_hot_analysis.py -a ../data/PF01196/PF01196.aln -m esm2
+```
+3. Homology analysis using RSS (order) / (magnitude) for low-gap and high-gap pfam datasets
+```
+python homology_analysis.py -a aligned fasta file -m model type -s shuffled fasta
+
+arguments:
+-a aligned fasta file with full path
+-m model type (options: esm2, pt, msa)
+-s shuffled fasta file boolean (options: Y for shuffled)
+
+example:
+python homology_analysis.py -a ../data/PF01196/PF01196.aln -m esm2 -s N
 ```
 4. Fine to coarse evolutionary timescale analysis
 ```
