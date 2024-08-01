@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-Running the analysis is faster on GPU.
+Running the analysis is faster on GPU. It is recommended to use a GPU with at least 45 GB of RAM or more.
 
 ### Dependencies
 ```
