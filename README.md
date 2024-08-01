@@ -11,6 +11,9 @@ pip install -r requirements.txt
 ### Running the investigations presented in the paper
 
 1. Prepare data for analysis (create LG tree, LG matrix, remove and standarise gaps, and shuffles the amino acids in sequences)
+
+<sub> ***** Note:: Aligned fasta file is needed for phylogenetic tree which constructs the distance matrix based on the tree for comparison.
+
 ```
 python prep_data.py -a aligned fasta file
 
