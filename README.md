@@ -3,6 +3,9 @@
 ## Description
 
 ## Getting Started
+
+Running the analysis is faster on GPU.
+
 ### Dependencies
 ```
 pip install -r requirements.txt
