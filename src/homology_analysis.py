@@ -1,3 +1,5 @@
+''' Python script for correlation analysis against lg matrix for output layer of pLM'''
+
 import sys, os
 import utils
 import numpy as np
@@ -9,7 +11,7 @@ model_layer_plm_repr = {'msa':12,'esm2':48,'pt':24}
 # help function
 def help():
     print("Incorrect or Incomplete command line arguments")
-    print('python homology_analysis.py -a alignment file -m model name -s T')
+    print('python homology_analysis.py -a alignment file -m model name -s Y -c Y')
     exit()
     
 
@@ -33,7 +35,7 @@ def layer_wise_lg_corr(plm_dataset,lg_mat_np,uni_sequence_names_dict):
 
     return rho_layer_corr,pearson_layer_corr
 
-def hm_correlation_analysis(fasta_aln_file,model_type,shuffle):
+def hm_correlation_analysis(fasta_aln_file,model_type,shuffle,colattn):
 
     file_location  = os.path.dirname(fasta_aln_file) 
     base_file_name = os.path.splitext(os.path.basename(fasta_aln_file))[0]
@@ -56,21 +58,29 @@ def hm_correlation_analysis(fasta_aln_file,model_type,shuffle):
     file_pick.close()
 
     # get pLM representation
-    layers = [model_layer_plm_repr[model_type]]
-    print(f"Getting pLM representation for protein family {base_file_name} from model {utils_get_embeddings.full_model_name[model_type]}")
-    PLM_dataset = utils_get_embeddings.get_plm_representation(model_type,fasta_file_wo_gap,fasta_file_std_gap,layers)
-    print(f"pLM embedding created for {len(PLM_dataset[:][0])} sequences each of size {PLM_dataset[0][1].shape}")
+    if colattn == 'Y' and model_type == 'MSA': # for column attention
+        print(f"Getting column attention (layer 1 head 5) for protein family {base_file_name} from model {utils_get_embeddings.full_model_name[model_type]}")
+        col_attn_np = utils_get_embeddings.get_col_attn(fasta_file_std_gap,seq_ref_dict)
+        col_attn_np = col_attn_np[0,4,:,:] # layer 1 head 5
+        print(f"Column attention matrix created of shape {col_attn_np.shape}")
+        rho_layer_corr = [round(utils.sperman_rank_corr(lg_mat_np,col_attn_np)[0],4)]
+        pearson_layer_corr = [round(utils.pearson_corr(lg_mat_np,col_attn_np)[0],4)]
 
-    # get rss
-    rho_layer_corr,pearson_layer_corr = layer_wise_lg_corr(PLM_dataset,lg_mat_np,seq_ref_dict)
+    else:
+        layers = [model_layer_plm_repr[model_type]]
+        print(f"Getting pLM representation for protein family {base_file_name} from model {utils_get_embeddings.full_model_name[model_type]}")
+        PLM_dataset = utils_get_embeddings.get_plm_representation(model_type,fasta_file_wo_gap,fasta_file_std_gap,layers)
+        print(f"pLM embedding created for {len(PLM_dataset[:][0])} sequences each of size {PLM_dataset[0][1].shape}")
+        rho_layer_corr,pearson_layer_corr = layer_wise_lg_corr(PLM_dataset,lg_mat_np,seq_ref_dict)
+
     return  rho_layer_corr,pearson_layer_corr
 
 if __name__ == "__main__":
 
     argv = sys.argv[1:]
-    opts, _ = getopt.getopt(argv, "a:m:s:")
+    opts, _ = getopt.getopt(argv, "a:m:s:c:")
 
-    if len(opts) < 3:
+    if len(opts) < 4:
         help()
     
     for opt, arg in opts:
@@ -80,7 +90,9 @@ if __name__ == "__main__":
             model_type = arg # esm2, pt, msa
         if opt in ['-s']:
             shuffle = arg
-    
-    rho_layer_corr,pearson_layer_corr = hm_correlation_analysis(fasta_aln_file,model_type,shuffle)
+        if opt in ['-c']:
+            colattn = arg # Y / N (only applicable for msa)
+        
+    rho_layer_corr,pearson_layer_corr = hm_correlation_analysis(fasta_aln_file,model_type,shuffle,colattn)
     print(f"RSS (order): {rho_layer_corr}")
     print(f"RSS (magnitude): {pearson_layer_corr}")

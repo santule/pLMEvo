@@ -22,7 +22,23 @@ def check_msa_stats(msa_file):
       size_align_seq = len(entry.sequence)
   return total_seqs,size_align_seq
 
-               
+def get_col_attn(fasta_file_std_gap,seq_ref_dict):
+    model_name = 'esm_msa1b_t12_100M_UR50S'
+    msa_model, msa_alphabet = pretrained.load_model_and_alphabet(model_name)
+    msa_model.to(device)
+    msa_model.eval()
+
+    # check total sequences and if aligned seq < 1024
+    total_seqs,size_align_seq = check_msa_stats(fasta_file_std_gap)
+    print(f"Total sequences is {total_seqs} and sequence length is {size_align_seq}")
+    if size_align_seq > 1024 or total_seqs > 1024:
+        print("Sequence greater than 1024, sequence would be truncated. So Skipping.")
+        return
+    
+    utils_embeddings.get_msa_colattn(total_seqs,fasta_file_std_gap,msa_model,msa_alphabet,device,seq_ref_dict)
+
+
+
 def get_plm_representation(model_type,fasta_file_wo_gap,fasta_file_std_gap,layers):
 
     if model_type == 'esm2':
