@@ -61,7 +61,8 @@ python run_one_hot_analysis.py -a ../data/PF01196/PF01196.aln -m esm2
 
    <sub> ***** Note:: Run step 1 first to ensure all files are created. ***** </sub>
 ```
-python homology_analysis.py -a aligned fasta file -m model type -s shuffled fasta -c column attention
+python homology_analysis.py -a aligned fasta file -m model type -s shuffled fasta
+                                                              -c column attention
 
 arguments:
 -a aligned fasta file with full path
