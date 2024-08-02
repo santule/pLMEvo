@@ -61,12 +61,14 @@ python run_one_hot_analysis.py -a ../data/PF01196/PF01196.aln -m esm2
 
    <sub> ***** Note:: Run step 1 first to ensure all files are created. ***** </sub>
 ```
-python homology_analysis.py -a aligned fasta file -m model type -s shuffled fasta
+python homology_analysis.py -a aligned fasta file -m model type -s shuffled fasta -c column attention
 
 arguments:
 -a aligned fasta file with full path
 -m model type (options: esm2, pt, msa)
 -s shuffled fasta file boolean (options: Y for shuffled)
+-c column attention representation, only works for model type 'msa'
+ (uses layer 1 head 5 from MSA-Transformer for this analysis)
 
 example:
 python homology_analysis.py -a ../data/PF01196/PF01196.aln -m esm2 -s N
@@ -75,14 +77,16 @@ python homology_analysis.py -a ../data/PF01196/PF01196.aln -m esm2 -s N
 
    <sub> ***** Note:: Run step 1 first to ensure all files are created. ***** </sub>
 ```
-python evol_timescale_analysis.py -a aligned fasta file -m model type
+python evol_timescale_analysis.py -a aligned fasta file -m model type -c column attention
 
 arguments:
 -a aligned fasta file with full path
 -m model type (options: esm2, pt, msa)
+-c column attention representation, only works for model type 'msa'
+ (uses layer 1 head 5 from MSA-Transformer for this analysis)
 
 example:
-python evol_timescale_analysis.py -a ../data/PF01196/PF01196.aln -m esm2
+python evol_timescale_analysis.py -a ../data/PF01196/PF01196.aln -m msa -c Y
 ```
 5. Elastic Net Regression Training and salient neuron analysis
 
