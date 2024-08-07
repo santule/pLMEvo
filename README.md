@@ -107,7 +107,7 @@ python salient_neurons.py -a ../data/PF01196/PF01196.aln -m esm2
    
    <sub> ***** Note:: Run step 1 first to ensure all files are created. ***** </sub>
 ```
-python salient_neurons.py -a aligned fasta file -m model type -k nearest neighbours
+python proximal_sim.py -a aligned fasta file -m model type -k nearest neighbours
 
 arguments:
 -a aligned fasta file with full path
