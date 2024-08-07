@@ -89,7 +89,7 @@ arguments:
 example:
 python fine_coarse_corr.py -a ../data/PF01196/PF01196.aln -m msa -c Y
 ```
-5. Elastic Net Regression Training and salient neuron analysis
+5. Elastic Net regression training for salient neuron analysis
 
    <sub> ***** Note:: Run step 1 first to ensure all files are created. ***** </sub>
 ```
