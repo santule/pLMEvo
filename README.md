@@ -74,7 +74,21 @@ arguments:
 example:
 python homology_corr.py -a ../data/PF01196/PF01196.aln -m esm2 -s N
 ```
-4. Fine to coarse evolutionary correlation analysis
+4. Local homolog similarity analysis
+   
+   <sub> ***** Note:: Run step 1 first to ensure all files are created. ***** </sub>
+```
+python local_homolog_sim.py -a aligned fasta file -m model type -k nearest neighbours
+
+arguments:
+-a aligned fasta file with full path
+-m model type (options: esm2, pt, msa)
+-k nearest neighbours ( 5,... 10,...., 50)
+
+python local_homolog_sim.py -a ../data/PF01196/PF01196.aln -m esm2 -k 5
+```
+
+5. Fine to coarse evolutionary correlation analysis
 
    <sub> ***** Note:: Run step 1 first to ensure all files are created. ***** </sub>
 ```
@@ -89,7 +103,7 @@ arguments:
 example:
 python fine_coarse_corr.py -a ../data/PF01196/PF01196.aln -m msa -c Y
 ```
-5. Elastic Net regression training for salient neuron analysis
+6. Elastic Net regression training for salient neuron analysis
 
    <sub> ***** Note:: Run step 1 first to ensure all files are created. ***** </sub>
 ```
@@ -103,16 +117,4 @@ example:
 python salient_neurons.py -a ../data/PF01196/PF01196.aln -m esm2
 
 ```
-6. Proximal homolog similarity analysis
-   
-   <sub> ***** Note:: Run step 1 first to ensure all files are created. ***** </sub>
-```
-python proximal_sim.py -a aligned fasta file -m model type -k nearest neighbours
 
-arguments:
--a aligned fasta file with full path
--m model type (options: esm2, pt, msa)
--k nearest neighbours ( 5,... 10,...., 50)
-
-python proximal_sim.py -a ../data/PF01196/PF01196.aln -m esm2 -k 5
-```
