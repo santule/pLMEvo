@@ -16,18 +16,16 @@ def help():
     exit()
     
 def get_sparse_idx(a): # collect sparse sequences wrt to each sequence
-    index_collect = []
-    a = list(a)
-    index_collect.append(np.nanargmin(a))
-    index_collect.append(a.index(np.nanpercentile(a,50,method='nearest')))
-    index_collect.append(np.nanargmax(a))
+    even_space_indx = list(np.linspace(0,len(a) - 2, num=10, dtype=int))
+    a_sort_idx = np.argsort(a)
+    index_collect = a_sort_idx[even_space_indx]
     return index_collect
 
 def get_closest_idx(a): # collect sparse sequences wrt to each sequence
-    m = np.argsort(a)[0:3]
+    m = np.argsort(a)[0:10]
     return m
 
-def sparse_spearman_corr_calc(lg_a,plm_b,type_sparse_corr):
+def sparse_corr_calc(lg_a,plm_b,type_sparse_corr):
     if type_sparse_corr == 'sparse':
         lg_a[lg_a == 0] = 'nan'
         mask_array = np.apply_along_axis(get_sparse_idx,-1,lg_a)
@@ -40,15 +38,15 @@ def sparse_spearman_corr_calc(lg_a,plm_b,type_sparse_corr):
 
     sr_list = []
     for i in range(0,sparse_lg_a.shape[0]):
-        sr = stats.spearmanr(sparse_lg_a[i],sparse_plm_b[i])[0]
+        sr = stats.pearsonr(sparse_lg_a[i],sparse_plm_b[i])[0]
         sr_list.append(sr)
 
     return round(np.average(sr_list),2)
 
-def avg_spearman_corr_calc(lg_a,plm_b):
+def avg_corr_calc(lg_a,plm_b):
     sr_list = []
     for i in range(0,lg_a.shape[0]):
-        sr = stats.spearmanr(lg_a[i],plm_b[i])[0]
+        sr = stats.pearsonr(lg_a[i],plm_b[i])[0]
         sr_list.append(sr)
     return round(np.average(sr_list),2)
 
@@ -74,9 +72,9 @@ def evol_scale_correlation_analysis(fasta_aln_file,model_type,colattn):
         col_attn_np = utils_get_embeddings.get_col_attn(fasta_file_std_gap,seq_ref_dict)
         col_attn_np = col_attn_np[0,4,:,:] # layer 1 head 5
         print(f"Column attention matrix created of shape {col_attn_np.shape}")
-        lg_corr_avg    = avg_spearman_corr_calc(lg_mat_np,col_attn_np)
-        lg_corr_sparse = sparse_spearman_corr_calc(lg_mat_np,col_attn_np,'sparse')  
-        lg_corr_near   = sparse_spearman_corr_calc(lg_mat_np,col_attn_np,'near')
+        lg_corr_avg    = avg_corr_calc(lg_mat_np,col_attn_np)
+        lg_corr_sparse = sparse_corr_calc(lg_mat_np,col_attn_np,'sparse')  
+        lg_corr_near   = sparse_corr_calc(lg_mat_np,col_attn_np,'near')
     
     else:
         # get pLM representation
@@ -93,9 +91,9 @@ def evol_scale_correlation_analysis(fasta_aln_file,model_type,colattn):
         plm_mat_np = utils.create_euclidean_distance_matrix(plm_seq_labels_dict,layer_embedding,seq_ref_dict)
         print(f"pLM matrix created of shape {plm_mat_np.shape}")
 
-        lg_corr_avg    = avg_spearman_corr_calc(lg_mat_np,plm_mat_np)
-        lg_corr_sparse = sparse_spearman_corr_calc(lg_mat_np,plm_mat_np,'sparse')  
-        lg_corr_near   = sparse_spearman_corr_calc(lg_mat_np,plm_mat_np,'near')
+        lg_corr_avg    = avg_corr_calc(lg_mat_np,plm_mat_np)
+        lg_corr_sparse = sparse_corr_calc(lg_mat_np,plm_mat_np,'sparse')  
+        lg_corr_near   = sparse_corr_calc(lg_mat_np,plm_mat_np,'near')
 
     return lg_corr_avg,lg_corr_sparse,lg_corr_near
 
