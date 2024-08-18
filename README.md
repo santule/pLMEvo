@@ -28,6 +28,10 @@ torch==2.1.0
 transformers==4.43.3
 ete3==3.1.3
 ```
+For FastTree 
+```
+conda install -c bioconda fasttree
+```
 
 ### Running the investigations presented in the paper
 
