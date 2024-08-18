@@ -46,7 +46,7 @@ arguments:
 -a aligned fasta file with full path
 
 example:
-python prep_data.py -a ../data/PF01196/PF01196.aln
+python prep_data.py -a ../data/PF00158/PF00158.aln
 ```
 2. One-hot correlation analysis
 
@@ -59,7 +59,7 @@ arguments:
 -m model type (options: esm2, pt, msa)
 
 example:
-python one_hot_corr.py -a ../data/PF01196/PF01196.aln -m esm2
+python one_hot_corr.py -a ../data/PF00158/PF00158.aln -m esm2
 ```
 3. Homology correlation analysis using RSS (order) / (magnitude) for low-gap and high-gap pfam datasets
 
@@ -76,9 +76,9 @@ arguments:
  (uses layer 1 head 5 from MSA-Transformer for this analysis)
 
 example:
-python homology_corr.py -a ../data/PF01196/PF01196.aln -m esm2 -s N -c N
+python homology_corr.py -a ../data/PF00158/PF00158.aln -m esm2 -s N -c N
 or
-python homology_corr.py -a ../data/PF01196/PF01196.aln -m msa -s N -c Y
+python homology_corr.py -a ../data/PF00158/PF00158.aln -m msa -s N -c Y
 ```
 4. Local homolog similarity analysis
    
@@ -91,7 +91,7 @@ arguments:
 -m model type (options: esm2, pt, msa)
 -k nearest neighbours ( 5,... 10,...., 50)
 
-python local_homolog_sim.py -a ../data/PF01196/PF01196.aln -m esm2 -k 5
+python local_homolog_sim.py -a ../data/PF00158/PF00158.aln -m esm2 -k 5
 ```
 
 5. Fine to coarse evolutionary correlation analysis
@@ -107,7 +107,7 @@ arguments:
  (uses layer 1 head 5 from MSA-Transformer for this analysis)
 
 example:
-python fine_coarse_corr.py -a ../data/PF01196/PF01196.aln -m msa -c Y
+python fine_coarse_corr.py -a ../data/PF00158/PF00158.aln -m msa -c Y
 ```
 6. Elastic Net regression training for salient neuron analysis
 
@@ -120,7 +120,7 @@ arguments:
 -m model type (options: esm2, pt, msa)
 
 example:
-python salient_neurons.py -a ../data/PF01196/PF01196.aln -m esm2
+python salient_neurons.py -a ../data/PF00158/PF00158.aln -m esm2
 
 ```
 
