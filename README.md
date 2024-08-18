@@ -68,11 +68,13 @@ arguments:
 -a aligned fasta file with full path
 -m model type (options: esm2, pt, msa)
 -s shuffled fasta file boolean (options: Y for shuffled)
--c column attention representation, only works for model type 'msa'
+-c column attention representation, only works for model type 'msa'. Use Y when column attention is needed
  (uses layer 1 head 5 from MSA-Transformer for this analysis)
 
 example:
-python homology_corr.py -a ../data/PF01196/PF01196.aln -m esm2 -s N
+python homology_corr.py -a ../data/PF01196/PF01196.aln -m esm2 -s N -c N
+or
+python homology_corr.py -a ../data/PF01196/PF01196.aln -m msa -s N -c Y
 ```
 4. Local homolog similarity analysis
    
