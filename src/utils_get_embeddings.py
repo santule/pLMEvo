@@ -35,8 +35,8 @@ def get_col_attn(fasta_file_std_gap,seq_ref_dict):
         print("Sequence greater than 1024, sequence would be truncated. So Skipping.")
         return
     
-    utils_embeddings.get_msa_colattn(total_seqs,fasta_file_std_gap,msa_model,msa_alphabet,device,seq_ref_dict)
-
+    uni_col_attn = utils_embeddings.get_msa_colattn(total_seqs,fasta_file_std_gap,msa_model,msa_alphabet,device,seq_ref_dict)
+    return uni_col_attn
 
 
 def get_plm_representation(model_type,fasta_file_wo_gap,fasta_file_std_gap,layers):

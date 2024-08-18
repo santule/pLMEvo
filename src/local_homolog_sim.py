@@ -93,7 +93,8 @@ def local_sim_analysis(fasta_aln_file,model_type,k):
     print(f"pLM matrix created of shape {plm_mat_np.shape}")
 
     # random sequence indexes
-    rand_seqs = lg_mat_np.shape[0]
+    draw_seq = lg_mat_np.shape[0]
+    rand_seqs = list(np.random.choice(len(seq_ref_dict), size = draw_seq, replace=False))
     print(f"Randomly selected {len(rand_seqs)} sequences.")
     
     knn_lg  = get_knn_sequences(k,lg_mat_np,rand_seqs)
@@ -111,8 +112,7 @@ def local_sim_analysis(fasta_aln_file,model_type,k):
     
     df_final['plm_js_group'] = df_final['plm_js'].apply(lambda x: groups_ji(x))
     df_final = df_final.groupby(['plm_js_group'])['plm_js'].count().reset_index()
-    df_final['percentage'] = round((df_final['value'] / knn_lg.shape[0]) * 100,2)
-    
+    df_final['percentage'] = round((df_final['plm_js'] / knn_lg_df.shape[0]) * 100,2)
     return df_final
 
 if __name__ == "__main__":
@@ -129,7 +129,7 @@ if __name__ == "__main__":
         if opt in ['-m']:
             model_type = arg # esm2, pt, msa
         if opt in ['-k']:
-            k = arg
+            k = int(arg)
     
     df_final = local_sim_analysis(fasta_aln_file,model_type,k)
     print(f"Local homolog similarity analysis complete")

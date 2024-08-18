@@ -67,10 +67,11 @@ def get_msa_colattn(total_seqs,msa_file_name,model,alphabet,device,seq_ref_dict)
   msa_data = [read_msa(msa_file_name, total_seqs)]
   msa_batch_labels, msa_batch_strs, msa_batch_tokens = msa_batch_converter(msa_data)
   print(f"PROCESS:: READ {msa_file_name} with {total_seqs} sequences")
+  msa_batch_labels = msa_batch_labels[0]
   plm_seq_labels_dict = {label:idx for idx,label in enumerate(msa_batch_labels)}
   
   with torch.no_grad():
-    out = model(msa_batch_tokens.to(device), repr_layers=output_layers, need_head_weights=False)
+    out = model(msa_batch_tokens.to(device), repr_layers=output_layers, need_head_weights=True)
     col_attn = out["col_attentions"] # 1,12,12,seq_len,total_seq,total_seq
     col_attn = col_attn.cpu().numpy()[0,...].mean(axis=2) # 12,12,total_seq,total_seq
 
@@ -79,7 +80,6 @@ def get_msa_colattn(total_seqs,msa_file_name,model,alphabet,device,seq_ref_dict)
 
     # rearrange col attention to match the universal matrix
     uni_col_attn = np.zeros((12,12,total_seqs,total_seqs))
-
     for ref_num, ref_extant_sequence in enumerate(msa_batch_labels):
         for other_extant_sequence in msa_batch_labels[ref_num + 1:]:
           ref_seq_pos   = plm_seq_labels_dict[ref_extant_sequence] # msa reference

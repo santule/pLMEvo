@@ -58,7 +58,7 @@ def hm_correlation_analysis(fasta_aln_file,model_type,shuffle,colattn):
     file_pick.close()
 
     # get pLM representation
-    if colattn == 'Y' and model_type == 'MSA': # for column attention
+    if colattn == 'Y' and model_type == 'msa': # for column attention
         print(f"Getting column attention (layer 1 head 5) for protein family {base_file_name} from model {utils_get_embeddings.full_model_name[model_type]}")
         col_attn_np = utils_get_embeddings.get_col_attn(fasta_file_std_gap,seq_ref_dict)
         col_attn_np = col_attn_np[0,4,:,:] # layer 1 head 5
