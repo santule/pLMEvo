@@ -89,7 +89,7 @@ python local_homolog_sim.py -a aligned fasta file -m model type -k nearest neigh
 arguments:
 -a aligned fasta file with full path
 -m model type (options: esm2, pt, msa)
--k nearest neighbours ( 5,... 10,...., 50)
+-k nearest neighbours ( 5, 10, 20)
 
 python local_homolog_sim.py -a ../data/PF00158/PF00158.aln -m esm2 -k 5
 ```
