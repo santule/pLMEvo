@@ -1,12 +1,12 @@
 # Do protein language model learn phylogenetic relationships?
 
 ## Description
-The conventional approach for examining homologous protein sequences utilises evolutionary models and phylogenetic trees, but an alternative that relies on artificial intelligence
-and data-driven techniques is emerging with unexpected ability to uncover evolutionary relationships from protein sequences.
-This research endeavors to connect these methodologies by assessing the capacity of protein-based language models (pLMs)
-to discern phylogenetic relationships without being explicitly trained to do so. Specifically, we evaluate ESM2, ProtTrans, and
-MSA-Transformer relative to conventional phylogenetic methods, while also evaluating the impact of sequence insertions and
-deletions (indels). 
+Deep machine learning demonstrates a capacity to uncover evolutionary relationships directly from protein
+sequences, in effect internalising notions inherent to classical phylogenetic tree inference. We connect these
+two paradigms by assessing the capacity of protein-based language models (pLMs) to discern phylogenetic
+relationships without being explicitly trained to do so. We evaluate ESM2, ProtTrans and MSA-Transformer
+relative to classical phylogenetic methods, while also considering sequence insertions and deletions (indels) across
+114 Pfam datasets.
 
 ## Getting Started
 
