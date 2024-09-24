@@ -1,4 +1,4 @@
-# Do protein language model learn phylogenetic relationships?
+# Do protein language models learn phylogeny ?
 
 ## Description
 Deep machine learning demonstrates a capacity to uncover evolutionary relationships directly from protein
